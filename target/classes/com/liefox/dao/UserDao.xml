@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liefox.dao.UserDao">
+    <!--修改用户信息-->
+    <update id="updateUserInfo" parameterType="User">
+        update user
+        set username =#{username},
+            password=#{password}
+        where username=#{username};
+    </update>
+    <!--注册用户-->
+    <insert id="regUser">
+        insert into user (username, password)
+        values (#{username}, #{password});
+    </insert>
+    <!--添加打卡记录-->
+    <insert id="addData">
+        insert into signinfo(username, temperature, address, date, qr_code_color, is_to_dongguan)
+        VALUES (#{username},#{temperature},#{address},#{date},#{qrCodeColor},#{isToDongguan})
+    </insert>
+    <!--登录用户-->
+    <select id="logUser" resultType="com.liefox.pojo.User">
+        select username, password
+        from user
+        where username = #{username}
+          and password = #{password};
+    </select>
+    <!--查看打卡记录-->
+    <select id="queryDataByUsername" resultType="com.liefox.pojo.User">
+        select username, temperature, address, date, qr_code_color as qrCodeColor, is_to_dongguan as isToDongguan
+        from signinfo
+        where username = #{username};
+    </select>
+    <!--查询全部用户打卡记录-->
+    <select id="queryDataAll" resultType="com.liefox.pojo.User">
+        select *
+        from signinfo;
+    </select>
+
+    <select id="queryUserDataByTime" resultType="com.liefox.pojo.User">
+        SELECT * FROM signinfo
+        WHERE username = #{username}
+          AND DATE_FORMAT(date, '%Y-%m-%d') = #{str}
+    </select>
+
+</mapper>
