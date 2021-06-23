@@ -31,38 +31,30 @@ public class LoginController {
          * 调用service层的登录方法
          */
         User user1 = userService.logUser(user);
-        /**
-         * 读取系统当前时间，格式化后返回给前端
-         */
+
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
         String format1 = format.format(new Date());
         //这里会抛出异常
         try {
             //管理员身份判断，进行跳转至管理员页
-            if (user1.getUsername().equals("佐佳豪")) {
+            if (user1.getAuthority() == 0) {
                 session.setAttribute("user1", user1);
                 return "admin";
-            }
-
-            /*这里耍了一个小聪明，给session设置了一个时间的值，用于前端表单隐藏域中获取时间数据*/
-            session.setAttribute("format1", format1);
-            //存放用户session，方便前端读取
-            session.setAttribute("user1", user1);
-
-            if (userService.queryUserDataByTime(format1, user1.getUsername())) {
+            }else if(user1.getAuthority() == 1){
+                session.setAttribute("user1", user1);
+                return "teacher";
+            }else{
+                //这里耍了一个小聪明，给session设置了一个时间的值，用于前端表单隐藏域中获取时间数据,签到用的
+                session.setAttribute("format1", format1);
+                //存放用户session，方便前端读取
+                session.setAttribute("user1", user1);
                 return "main";
-            } else {
-                request.setAttribute("list",userService.queryDataByUsername(user1.getUsername()));
-                return "/queryDataByUsername";
             }
         } catch (Exception e) {
             System.err.println(e.getMessage());
             session.setAttribute("info", "用户名或密码错误!");
-
         }
         return "redirect:/login.jsp";
-
-
     }
 
     //退出

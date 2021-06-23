@@ -30,4 +30,13 @@ public class JumpController {
         return "usermod";
     }
 
+    @RequestMapping("/jumpModifySchool")
+    public String jumpModifySchool() {
+        return "admin";
+    }
+
+    @RequestMapping("/jumpModifyTip")
+    public String jumpModifyTip() {
+        return "adminTip";
+    }
 }

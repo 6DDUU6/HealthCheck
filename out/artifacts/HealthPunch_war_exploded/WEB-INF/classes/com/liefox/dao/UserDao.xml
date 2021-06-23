@@ -18,11 +18,11 @@
     <!--添加打卡记录-->
     <insert id="addData">
         insert into signinfo(username, temperature, address, date, qr_code_color, is_to_dongguan)
-        VALUES (#{username},#{temperature},#{address},#{date},#{qrCodeColor},#{isToDongguan})
+        VALUES (#{username},#{temperature},#{address},#{date},#{qrCodeColor},#{isToDongguan});
     </insert>
     <!--登录用户-->
     <select id="logUser" resultType="com.liefox.pojo.User">
-        select username, password
+        select id as userid, username, password, `type` as authority, schoolid
         from user
         where username = #{username}
           and password = #{password};
@@ -38,11 +38,57 @@
         select *
         from signinfo;
     </select>
-
+    <!--查询全部学校-->
+    <select id="queryAllSchool" resultType="com.liefox.pojo.school">
+        select id as schoolid,schoolname
+        from school;
+    </select>
+    <!--查询一个学校-->
+    <select id="querySchoolByName" resultType="com.liefox.pojo.school">
+        select id as schoolid,schoolname
+        from school
+        where schoolname = #{schoolname};
+    </select>
+    <!--添加学校-->
+    <insert id="addSchool">
+        insert into school(schoolname)
+        VALUES (#{schoolname});
+    </insert>
+    <!--删除学校-->
+    <delete id="deleteSchool" parameterType="_int[]">
+        delete from school where id in
+        <foreach collection="array" open="(" close=")" separator="," item="id">#{id}</foreach>
+    </delete>
+    <!--查询全部tip-->
+    <select id="queryAllTips" resultType="com.liefox.pojo.Tip">
+        select *
+        from tips;
+    </select>
+    <!--查询最后一个tip-->
+    <select id="queryLastTip" resultType="com.liefox.pojo.Tip">
+        select *
+        from tips order by id desc limit 1;
+    </select>
+    <!--添加tip-->
+    <insert id="addTip">
+        insert into tips (content,fromnick,tourl,fromid,active_range,tips_type)
+        VALUES (#{content},#{fromnick},#{tourl},#{fromid},#{active_range},#{tips_type});
+    </insert>
+    <!--更新tip-->
+    <update id="updateTip">
+        update tips
+        set content = #{content}
+        where id = #{id};
+    </update>
+    <!--删除tip-->
+    <delete id="deleteTips" parameterType="_int[]">
+        delete from tips where id in
+        <foreach collection="array" open="(" close=")" separator="," item="id">#{id}</foreach>
+    </delete>
     <select id="queryUserDataByTime" resultType="com.liefox.pojo.User">
         SELECT * FROM signinfo
         WHERE username = #{username}
-          AND DATE_FORMAT(date, '%Y-%m-%d') = #{str}
+          AND DATE_FORMAT(date, '%Y-%m-%d') = #{str};
     </select>
 
 </mapper>
