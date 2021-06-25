@@ -32,8 +32,8 @@ public class LoginController {
          */
         User user1 = userService.logUser(user);
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-        String format1 = format.format(new Date());
+//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+//        String format1 = format.format(new Date());
         //这里会抛出异常
         try {
             //管理员身份判断，进行跳转至管理员页
@@ -45,7 +45,8 @@ public class LoginController {
                 return "teacher";
             }else{
                 //这里耍了一个小聪明，给session设置了一个时间的值，用于前端表单隐藏域中获取时间数据,签到用的
-                session.setAttribute("format1", format1);
+                //为什么不在数据库里直接弄默认时间
+//                session.setAttribute("format1", format1);
                 //存放用户session，方便前端读取
                 session.setAttribute("user1", user1);
                 return "main";

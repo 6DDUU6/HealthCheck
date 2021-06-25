@@ -15,7 +15,8 @@
             <div class="layui-logo" style="color: white;font-size: 32px">疫情防控</div>
             <!-- 头部区域（可配合layui 已有的水平导航） -->
             <ul class="layui-nav layui-layout-left">
-                <li class="layui-nav-item layui-this">疫情实时数据</li>
+                <li class="layui-nav-item layui-this">学生打卡记录</li>
+                <li class="layui-nav-item"><a href="${pageContext.request.contextPath}/jumpTeacherModifyTip">发布打卡</a></li>
             </ul>
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item">
@@ -42,7 +43,7 @@
 
 <div class="layui-row" style="margin-top: 100px">
     <div class="layui-col-xs12 layui-col-md12">
-        <h1 style="text-align: center">发布任务</h1>
+        <h1 style="text-align: center">任务情况</h1>
         <table class="layui-hide" id="test" lay-filter="test"></table>
 
         <script type="text/html" id="toolbarDemo">
@@ -61,16 +62,15 @@
 
         table.render({
             elem: '#test'
-            , url: '${pageContext.request.contextPath}/queryDataAll'
+            , url: '${pageContext.request.contextPath}/querySignInfo'
             , toolbar: '#toolbarDemo' //开启头部工具栏，并为其绑定左侧模板
             , defaultToolbar: ['filter', 'exports', 'print']
             , title: '用户数据表'
             , cols: [[
-                {type: 'checkbox', fixed: 'left'}
-                , {field: 'temperature', title: '体温', width: 200, fixed: 'left', unresize: true, sort: true}
-                , {field: 'username', title: '用户名', width: 200, edit: 'text'}
+                {field: 'signid', title: '签到id', width: 200, fixed: 'left', unresize: true, sort: true}
+                , {field: 'username', title: '用户名', width: 200}
                 , {field: 'address', title: '打卡地址', width: 500}
-                , {field: 'date', title: '打卡时间', width: 500, sort: true}
+                , {field: 'date', title: '打卡时间', sort: true}
             ]]
             ,parseData: function (res) {
                 return {

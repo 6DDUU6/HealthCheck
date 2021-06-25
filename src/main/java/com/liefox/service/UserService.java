@@ -1,8 +1,6 @@
 package com.liefox.service;
 
-import com.liefox.pojo.Tip;
-import com.liefox.pojo.User;
-import com.liefox.pojo.school;
+import com.liefox.pojo.*;
 
 import java.util.List;
 
@@ -30,5 +28,13 @@ public interface UserService {
     Tip queryLastTip();
     int addTip(String content,String fromnick,String tourl,int fromid,int active_range,int tips_type);
     int deleteTips(int[] tipsid);
+
+    List<Tip> queryTipsBySchool(int schoolid);
+    List<Sign> querySignsBySchool(int schoolid);
+    List<SignInfo> querySignInfoBySignId(int[] signid);
+
+    int addSign(User user);
+    Sign queryLastSign();
+
     boolean queryUserDataByTime(String str,String username);
 }

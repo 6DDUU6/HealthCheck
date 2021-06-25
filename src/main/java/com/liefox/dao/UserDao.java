@@ -1,8 +1,6 @@
 package com.liefox.dao;
 
-import com.liefox.pojo.Tip;
-import com.liefox.pojo.User;
-import com.liefox.pojo.school;
+import com.liefox.pojo.*;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -31,6 +29,13 @@ public interface UserDao {
     int updateTip(@Param("id")int id,@Param("content")String content);
     Tip queryLastTip();
     int deleteTips(int[] tipsid);
+
+    List<Tip> queryTipsBySchool(int schoolid);
+    List<Sign> querySignsBySchool(int schoolid);
+    List<SignInfo> querySignInfoBySignId(int[] signid);
+    int addSign(User user);
+    Sign queryLastSign();
+
     User queryUserDataByTime(@Param("str") String str, @Param("username") String username);
 
 }

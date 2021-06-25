@@ -2,9 +2,7 @@ package com.liefox.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.liefox.pojo.Tip;
-import com.liefox.pojo.User;
-import com.liefox.pojo.school;
+import com.liefox.pojo.*;
 import com.liefox.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import javax.swing.*;
 import java.io.IOException;
 import java.util.List;
 
@@ -81,10 +80,16 @@ public class adminController {
      * @throws JsonProcessingException
      */
     @RequestMapping("/queryAllTips")
-    public String queryAllTips() throws JsonProcessingException {
+    public String queryAllTips(HttpSession session) throws JsonProcessingException {
         //jackson 对象
+        User user = (User) session.getAttribute("user1");//从session中获取user
+        List<Tip> list;
+        if(user.getAuthority() == 0){
+            list = userService.queryAllTips();
+        }else{
+            list = userService.queryTipsBySchool(user.getSchoolid());
+        }
         ObjectMapper mapper = new ObjectMapper();
-        List<Tip> list = userService.queryAllTips();
         //把对象需要转换成json
         String s = mapper.writeValueAsString(list);
         return s;
@@ -138,5 +143,41 @@ public class adminController {
         ObjectMapper mapper = new ObjectMapper();
         Tip tp = mapper.readValue(data, Tip.class);
         userService.updateTip(tp.getId(), tp.getContent());
+    }
+
+    /**
+     * 描述：查询学校下的所有signInfo
+     */
+    @RequestMapping("/querySignInfo")
+    public String querySignInfo(HttpSession session) throws Exception{
+        User user = (User) session.getAttribute("user1");//从session中获取user
+        List<Sign> sign = userService.querySignsBySchool(user.getSchoolid());
+        int[] signid = new int[sign.size()];
+        for(int i=0; i<sign.size(); i++){
+            signid[i] = sign.get(i).getId();
+        }
+        List<SignInfo> signInfos = userService.querySignInfoBySignId(signid);
+        ObjectMapper mapper = new ObjectMapper();
+        String s;
+        s = mapper.writeValueAsString(signInfos);
+        return s;
+    }
+
+    /**
+     * 描述：教师添加一个sign和tip
+     */
+    @RequestMapping("/addSignTip")
+    public String addSignTip(HttpSession session) throws Exception{
+        User user = (User) session.getAttribute("user1");//从session中获取user
+        userService.addSign(user);
+        Sign sign = userService.queryLastSign();
+        int id = sign.getId();
+        String url = "/sign/" + id;
+        userService.addTip("空",user.getUsername(),url,user.getUserid(),user.getSchoolid(),user.getAuthority());
+        Tip tp = userService.queryLastTip();
+        ObjectMapper mapper = new ObjectMapper();
+        String s;
+        s = mapper.writeValueAsString(tp);
+        return s;
     }
 }

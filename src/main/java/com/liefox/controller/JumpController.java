@@ -39,4 +39,15 @@ public class JumpController {
     public String jumpModifyTip() {
         return "adminTip";
     }
+
+    @RequestMapping("/jumpTeacherMain")
+    public String jumpTeacherMain() {
+        return "teacher";
+    }
+
+    @RequestMapping("/jumpTeacherModifyTip")
+    public String jumpTeacherModifyTip() {
+        return "teacherTip";
+    }
+
 }

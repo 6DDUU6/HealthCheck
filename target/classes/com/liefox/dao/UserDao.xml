@@ -17,8 +17,8 @@
     </insert>
     <!--添加打卡记录-->
     <insert id="addData">
-        insert into signinfo(username, temperature, address, date, qr_code_color, is_to_dongguan)
-        VALUES (#{username},#{temperature},#{address},#{date},#{qrCodeColor},#{isToDongguan});
+        insert into signinfo(username, temperature, address, qr_code_color, is_to_dongguan)
+        VALUES (#{username},#{temperature},#{address},#{qrCodeColor},#{isToDongguan});
     </insert>
     <!--登录用户-->
     <select id="logUser" resultType="com.liefox.pojo.User">
@@ -85,6 +85,34 @@
         delete from tips where id in
         <foreach collection="array" open="(" close=")" separator="," item="id">#{id}</foreach>
     </delete>
+    <!--根据学校查看全部tip-->
+    <select id="queryTipsBySchool" resultType="com.liefox.pojo.Tip">
+        select *
+        from tips
+        where active_range = #{schoolid};
+    </select>
+    <!--根据学校查看全部sign-->
+    <select id="querySignsBySchool" resultType="com.liefox.pojo.Sign">
+        select *
+        from sign
+        where schoolid = #{schoolid};
+    </select>
+    <!--根据signid查询info-->
+    <select id="querySignInfoBySignId" parameterType="_int[]" resultType="com.liefox.pojo.SignInfo">
+        select * from signinfo where signid in
+        <foreach collection="array" open="(" close=")" separator="," item="id">#{id}</foreach>
+    </select>
+    <!--添加sign-->
+    <insert id="addSign" parameterType="User">
+        insert into sign (fromid,schoolid)
+        VALUES (#{userid},#{schoolid});
+    </insert>
+    <!--查询最后一个sign-->
+    <select id="queryLastSign" resultType="com.liefox.pojo.Sign">
+        select *
+        from sign order by id desc limit 1;
+    </select>
+
     <select id="queryUserDataByTime" resultType="com.liefox.pojo.User">
         SELECT * FROM signinfo
         WHERE username = #{username}

@@ -82,7 +82,7 @@
             <%--输入框--%>
             <form class="layui-form" action="${pageContext.request.contextPath}/SignIn" method="post">
                 <input type="text" name="username" value="${user1.username}" style="display: none">
-                <input type="text" name="date" value="${format1}" style="display: none">
+<%--                <input type="text" name="date" value="${format1}" style="display: none">--%>
                 <div class="layui-form-item">
                     <label class="layui-form-label"><h2>地址：</h2></label>
                     <div class="layui-input-block">

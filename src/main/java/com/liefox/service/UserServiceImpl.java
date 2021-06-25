@@ -1,9 +1,8 @@
 package com.liefox.service;
 
 import com.liefox.dao.UserDao;
-import com.liefox.pojo.Tip;
-import com.liefox.pojo.User;
-import com.liefox.pojo.school;
+import com.liefox.pojo.*;
+
 import java.util.List;
 
 
@@ -84,6 +83,24 @@ public class UserServiceImpl implements UserService {
     public int deleteTips(int[] tipsid){
         return userDao.deleteTips(tipsid);
     }
+
+    @Override
+    public List<Tip> queryTipsBySchool(int schoolid) {
+        return userDao.queryTipsBySchool(schoolid);
+    }
+
+    @Override
+    public List<Sign> querySignsBySchool(int schoolid) { return userDao.querySignsBySchool(schoolid); }
+
+    @Override
+    public List<SignInfo> querySignInfoBySignId(int[] signid) { return userDao.querySignInfoBySignId(signid); }
+
+    @Override
+    public int addSign(User user) { return userDao.addSign(user); }
+
+    @Override
+    public Sign queryLastSign() { return userDao.queryLastSign(); }
+
 
     @Override
     public boolean queryUserDataByTime(String str, String username) {

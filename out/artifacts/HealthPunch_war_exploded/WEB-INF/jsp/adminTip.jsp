@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>${user1.username}管理员界面</title>
+    <title>管理员界面</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/static/layui/css/layui.css">
     <script src="${pageContext.request.contextPath}/static/layui/layui.js" charset="utf-8"></script>
 <%--    <script src="${pageContext.request.contextPath}/static/js/jquery-3.2.1.js" charset="utf-8"></script>--%>
@@ -18,14 +18,14 @@
             <ul class="layui-nav layui-layout-left">
                 <li class="layui-nav-item"><a href="${pageContext.request.contextPath}/jumpModifySchool">修改学校</a>
                 </li>
-                <li class="layui-nav-item layui-this">发布公告</li>
+                <li class="layui-nav-item layui-this">管理公告</li>
             </ul>
             <ul class="layui-nav layui-layout-right">
                 <li class="layui-nav-item">
                     <a>
                         <img src="https://cxq21.gitee.io/images/LIEFox.png"
                              class="layui-nav-img">
-                        ${user1.username}
+                        ${user1.username}管理员大大
                     </a>
                     <dl class="layui-nav-child">
                         <dd><a href="${pageContext.request.contextPath}/jumpUserMod">个人信息</a></dd>
@@ -45,7 +45,7 @@
 <![endif]-->
 <div class="layui-row" style="margin-top: 100px">
     <div class="layui-col-xs12 layui-col-md12">
-        <h1 style="text-align: center">学校管理</h1>
+        <h1 style="text-align: center">公告管理</h1>
         <table class="layui-hide" id="test" lay-filter="test"></table>
 
         <script type="text/html" id="toolbarDemo">
