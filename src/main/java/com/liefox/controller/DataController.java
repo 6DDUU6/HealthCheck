@@ -1,5 +1,6 @@
 package com.liefox.controller;
 
+import com.liefox.pojo.User;
 import com.liefox.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -7,6 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * @Author zjh
@@ -29,6 +32,16 @@ public class DataController {
         modelAndView.setViewName("queryDataByUsername");
         modelAndView.addObject("list",userService.queryDataByUsername(username));
         System.out.println(modelAndView);
+        return modelAndView;
+    }
+
+    @GetMapping("/queryDaKa/{username}")
+    public ModelAndView mainPage(HttpSession session) {
+        User user = (User) session.getAttribute("user1");
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("main");
+        modelAndView.addObject("list", userService.queryDakaRecord(user));
+        //System.out.println(modelAndView);
         return modelAndView;
     }
 }

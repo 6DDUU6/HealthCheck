@@ -1,8 +1,14 @@
 package com.liefox.controller;
 
+import com.liefox.pojo.User;
+import com.liefox.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -11,9 +17,15 @@ import javax.servlet.http.HttpSession;
  **/
 @Controller
 public class JumpController {
+    @Autowired
+    @Qualifier("UserServiceImpl")
+    private UserService userService;
+
     //跳转首页
     @RequestMapping("/jumpMain")
-    public String jumpMain() {
+    public String jumpMain(HttpSession session,HttpServletRequest request) {
+        User user = (User) session.getAttribute("user1");
+        request.setAttribute("list", userService.queryDakaRecord(user));
         return "main";
     }
 
@@ -50,4 +62,9 @@ public class JumpController {
         return "teacherTip";
     }
 
+    @RequestMapping("/jumpSign/{signid}")
+    public String jumpSign(HttpSession session,@PathVariable int signid) {
+        session.setAttribute("signid",signid);
+        return "sign";
+    }
 }

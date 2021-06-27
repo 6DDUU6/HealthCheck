@@ -16,9 +16,9 @@
         values (#{username}, #{password});
     </insert>
     <!--添加打卡记录-->
-    <insert id="addData">
-        insert into signinfo(username, temperature, address, qr_code_color, is_to_dongguan)
-        VALUES (#{username},#{temperature},#{address},#{qrCodeColor},#{isToDongguan});
+    <insert id="addData" parameterType="SignInfo">
+        insert into signinfo(signid, userid, username, temperature, address, qr_code_color, is_to_dongguan)
+        VALUES (#{signid},#{userid},#{username},#{temperature},#{address},#{qrCodeColor},#{isToDongguan});
     </insert>
     <!--登录用户-->
     <select id="logUser" resultType="com.liefox.pojo.User">
@@ -107,10 +107,30 @@
         insert into sign (fromid,schoolid)
         VALUES (#{userid},#{schoolid});
     </insert>
+    <!--添加signtip-->
+    <insert id="addSignTip">
+        insert into tip_sign (tipid,signid)
+        VALUES (#{tipid},#{signid});
+    </insert>
     <!--查询最后一个sign-->
     <select id="queryLastSign" resultType="com.liefox.pojo.Sign">
         select *
         from sign order by id desc limit 1;
+    </select>
+    <!--根据user查询tip-->
+    <select id="queryUserTip" parameterType="User" resultType="com.liefox.pojo.Tip">
+        select *
+        from tips where active_range = #{schoolid} or active_range = 0;
+    </select>
+    <!--根据tipid查询signid-->
+    <select id="queryTip2Sign" resultType="com.liefox.pojo.SignTip">
+        select *
+        from tip_sign where tipid = #{tipid} limit 1;
+    </select>
+    <!--根据user查询tip是否填写-->
+    <select id="querySignInfo" resultType="com.liefox.pojo.SignInfo">
+        select *
+        from signinfo where signid = #{signid} and userid = #{userid} limit 1;
     </select>
 
     <select id="queryUserDataByTime" resultType="com.liefox.pojo.User">

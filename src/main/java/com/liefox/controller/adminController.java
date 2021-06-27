@@ -144,40 +144,4 @@ public class adminController {
         Tip tp = mapper.readValue(data, Tip.class);
         userService.updateTip(tp.getId(), tp.getContent());
     }
-
-    /**
-     * 描述：查询学校下的所有signInfo
-     */
-    @RequestMapping("/querySignInfo")
-    public String querySignInfo(HttpSession session) throws Exception{
-        User user = (User) session.getAttribute("user1");//从session中获取user
-        List<Sign> sign = userService.querySignsBySchool(user.getSchoolid());
-        int[] signid = new int[sign.size()];
-        for(int i=0; i<sign.size(); i++){
-            signid[i] = sign.get(i).getId();
-        }
-        List<SignInfo> signInfos = userService.querySignInfoBySignId(signid);
-        ObjectMapper mapper = new ObjectMapper();
-        String s;
-        s = mapper.writeValueAsString(signInfos);
-        return s;
-    }
-
-    /**
-     * 描述：教师添加一个sign和tip
-     */
-    @RequestMapping("/addSignTip")
-    public String addSignTip(HttpSession session) throws Exception{
-        User user = (User) session.getAttribute("user1");//从session中获取user
-        userService.addSign(user);
-        Sign sign = userService.queryLastSign();
-        int id = sign.getId();
-        String url = "/sign/" + id;
-        userService.addTip("空",user.getUsername(),url,user.getUserid(),user.getSchoolid(),user.getAuthority());
-        Tip tp = userService.queryLastTip();
-        ObjectMapper mapper = new ObjectMapper();
-        String s;
-        s = mapper.writeValueAsString(tp);
-        return s;
-    }
 }

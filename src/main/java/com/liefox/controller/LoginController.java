@@ -49,6 +49,7 @@ public class LoginController {
 //                session.setAttribute("format1", format1);
                 //存放用户session，方便前端读取
                 session.setAttribute("user1", user1);
+                request.setAttribute("list", userService.queryDakaRecord(user1));
                 return "main";
             }
         } catch (Exception e) {

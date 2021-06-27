@@ -15,7 +15,7 @@ public interface UserDao {
     //查看打卡记录
     List<User> queryDataByUsername(@Param("username") String username);
     //添加打卡记录
-    int addData(User user);
+    int addData(SignInfo info);
     //查询全部用户打卡记录
     List<User> queryDataAll();
     //学校
@@ -34,7 +34,12 @@ public interface UserDao {
     List<Sign> querySignsBySchool(int schoolid);
     List<SignInfo> querySignInfoBySignId(int[] signid);
     int addSign(User user);
+    int addSignTip(@Param("tipid") int tipid,@Param("signid") int signid);
     Sign queryLastSign();
+
+    SignTip queryTip2Sign(int tipid);
+    SignInfo querySignInfo(@Param("signid") int signid,@Param("userid") int userid);
+    List<Tip> queryUserTip(User user);
 
     User queryUserDataByTime(@Param("str") String str, @Param("username") String username);
 

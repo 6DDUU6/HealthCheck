@@ -1,4 +1,3 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -71,42 +70,68 @@
     <%--导航栏 end--%>
 
     <div class="layui-col-xs6 layui-col-md12">
-        <div class="grid-demo grid-demo-bg2" style="margin-top: 100px">
-            <div class="layui-col-xs12 layui-col-md12">
-                <h1 style="text-align: center">消息列表</h1>
+        <div class="grid-demo grid-demo-bg2">
 
-                <table class="layui-table" lay-size="lg" id="tab">
+            <%--地图--%>
 
-                    <thead>
-                    <tr >
-                        <th>发布者</th>
-                        <th>内容</th>
-                        <th>是否已填写</th>
-                        <th>时间</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <c:forEach var="user" items="${list}">
-                        <tr>
-                            <td>${user.fromNick}</td>
-                            <td>${user.content}</td>
-                            <td>
-                                <c:choose>
-                                    <c:when test="${user.tipstype == 0}"> 此为公告</c:when>
-                                    <c:otherwise>
-                                        <c:choose>
-                                            <c:when test="${user.daka}"><span style="color: gray">已填写</span></c:when>
-                                            <c:otherwise><a href="${pageContext.request.contextPath}${user.toUrl}"><button type="button" class="layui-btn layui-btn-fluid">未填写</button></a> </c:otherwise>
-                                        </c:choose>
-                                    </c:otherwise>
-                                </c:choose>
-                            </td>
-                            <td>${user.date}</td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
+            <div id="l-map"></div>
+
+            <%--地图 end--%>
+            <br/>
+            <br/>
+            <%--输入框--%>
+            <form class="layui-form" action="${pageContext.request.contextPath}/SignIn/${signid}" method="post">
+<%--                <input type="text" name="username" value="${user1.username}" style="display: none">--%>
+<%--                <input type="text" name="date" value="${format1}" style="display: none">--%>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><h2>地址：</h2></label>
+                    <div class="layui-input-block">
+                        <input id="suggestId" type="text" name="address" lay-verify="required" autocomplete="off"
+                               lay-reqtext="地址是必填项，岂能为空？" placeholder="请输入所在地" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label"><h2>体温：</h2></label>
+                    <div class="layui-input-block">
+                        <input type="text" name="temperature" lay-verify="required|temperature"
+                               lay-reqtext="体温是必填项，岂能为零度？"
+                               placeholder="请输入您的体温" autocomplete="off" class="layui-input"
+                               oninput="if(value>43){value=43}else{value=value.replace(/[^\d]/g,'')}if(value.indexOf(0)==0){value=36}">
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width: 100px"><h2>粤康码：</h2></label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="qrCodeColor" value="黄码" title="黄码">
+                        <input type="radio" name="qrCodeColor" value="红码" title="红码">
+                        <input type="radio" name="qrCodeColor" value="绿码" title="绿码" checked>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label" style="width: 415px"><h2>近十四天（6月6日至今）您是否去过东莞？</h2></label>
+                    <div class="layui-input-block">
+                        <input type="radio" name="isToDongguan" value="是" title="是">
+                        <input type="radio" name="isToDongguan" value="否" title="否" checked>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <div class="layui-input-block">
+                        <div style="text-align: center">
+                            <button type="submit" class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
+            <%--输入框 end--%>
+
+            <%--搜索下拉框--%>
+            <div id="searchResultPanel"
+                 style="border:1px solid #C0C0C0;width:150px;height:auto; display:none;">
             </div>
+            <%--搜索下拉框 end--%>
 
         </div>
     </div>

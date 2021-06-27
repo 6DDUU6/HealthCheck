@@ -3,6 +3,9 @@ package com.liefox.service;
 import com.liefox.dao.UserDao;
 import com.liefox.pojo.*;
 
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -42,8 +45,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int addData(User user) {
-        return userDao.addData(user);
+    public int addData(SignInfo info) {
+        return userDao.addData(info);
     }
 
     @Override
@@ -97,13 +100,41 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int addSign(User user) { return userDao.addSign(user); }
+    @Override
+    public int addSignTip(int tipid,int signid) { return userDao.addSignTip(tipid, signid); }
 
     @Override
     public Sign queryLastSign() { return userDao.queryLastSign(); }
 
 
     @Override
+    public List<DakaRecord> queryDakaRecord(User user) {
+        List<Tip> tips = userDao.queryUserTip(user);
+        List<DakaRecord> dakaRecords = new ArrayList<DakaRecord>();
+        for(Tip tip:tips){
+            DakaRecord dakaRecord = new DakaRecord();
+            dakaRecord.setFromNick(tip.getFromnick());
+            dakaRecord.setContent(tip.getContent());
+            dakaRecord.setTipstype(tip.getTips_type());
+            dakaRecord.setToUrl(tip.getTourl());
+            dakaRecord.setDate(tip.getCreate_time());
+            try{
+                SignTip st = userDao.queryTip2Sign(tip.getId());
+                SignInfo info = userDao.querySignInfo(st.getSignid(),user.getUserid());
+                int count = info.getUserid();
+                dakaRecord.setDaka(count > 0);
+            }catch (Exception e){
+                dakaRecord.setDaka(false);
+            }
+            dakaRecords.add(dakaRecord);
+        }
+        return dakaRecords;
+    }
+
+    @Override
     public boolean queryUserDataByTime(String str, String username) {
         return userDao.queryUserDataByTime(str, username) == null;
     }
+
+
 }

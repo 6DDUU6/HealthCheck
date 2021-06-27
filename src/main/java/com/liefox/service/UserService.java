@@ -14,7 +14,7 @@ public interface UserService {
     //查看打卡记录
     List<User> queryDataByUsername(String username);
     //添加打卡记录
-    int addData(User user);
+    int addData(SignInfo info);
     //查询全部用户打卡记录
     List<User> queryDataAll();
     //查询全部学校
@@ -22,6 +22,8 @@ public interface UserService {
     int addSchool(String schoolname);
     school querySchoolByName(String schoolname);
     int deleteSchool(int[] schoolid);
+
+    List<DakaRecord> queryDakaRecord(User user);
     //查询全部tip
     List<Tip> queryAllTips();
     int updateTip(int id,String content);
@@ -34,6 +36,7 @@ public interface UserService {
     List<SignInfo> querySignInfoBySignId(int[] signid);
 
     int addSign(User user);
+    int addSignTip(int tipid,int signid);
     Sign queryLastSign();
 
     boolean queryUserDataByTime(String str,String username);

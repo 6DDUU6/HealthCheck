@@ -1,11 +1,16 @@
 package com.liefox.controller;
 
+import com.liefox.pojo.SignInfo;
 import com.liefox.pojo.User;
 import com.liefox.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 
 /**
@@ -21,13 +26,17 @@ public class SignController {
     /**
      *      打卡控制层
      * */
-    @RequestMapping("/SignIn")
-    public String SignIn(User user) {
-        int i = userService.addData(user);
+    @RequestMapping("/SignIn/{signid}")
+    public String SignIn(HttpSession session, @PathVariable int signid, SignInfo info, HttpServletRequest request) {
+        User user = (User) session.getAttribute("user1");//从session中获取user
+        info.setUserid(user.getUserid());
+        info.setUsername(user.getUsername());
+        info.setSignid(signid);
+        int i = userService.addData(info);
         if (i != 0) {
+            request.setAttribute("list", userService.queryDakaRecord(user));
             return "main";
         }
         return null;
-
     }
 }
