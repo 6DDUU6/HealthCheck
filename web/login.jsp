@@ -118,10 +118,11 @@
                             </div>
                         </form>
                         <%--小聪明，当时的灵机一动，感觉不好的可以直接修改--%>
-                        <span style="color: red;margin-left: 460px"><i class="layui-icon layui-icon-face-surprised"
+                        <span style="color: red"><i class="layui-icon layui-icon-face-surprised"
                                                                        style="font-size: 20px"></i>&nbsp;${info}</span>
                         <%--输入框 end--%>
-                        <a href="${pageContext.request.contextPath}/jumpRegister" style="margin-left: 1075px">注册</a>
+                        <a href="${pageContext.request.contextPath}/jumpTeacherRegister" style="float:right;padding-right: 5px">教师注册</a>
+                        <a href="${pageContext.request.contextPath}/jumpRegister" style="float:right;padding-right: inherit;">学生注册</a>
                     </div>
                 </div>
             </div>
@@ -129,18 +130,7 @@
     </div>
 
 </div>
-<%--主体--%>
 
-
-<div style="margin-left: 650px">
-    <%--gitee仓库图标地址--%>
-    <a href='https://gitee.com/cxq21/HealthCheck' target="_blank" title="项目仓库"><img
-            src='https://gitee.com/cxq21/HealthCheck/widgets/widget_6.svg' alt='Fork me on Gitee'></img></a>
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    <%--liefox官网--%>
-    <a href='https://cxq21.gitee.io' target="_blank" title="LIEFox官网"><img
-            src="https://cxq21.gitee.io/images/LIEFox.png" alt='LIEFox官网' height="40px"></img></a>
-</div>
 
 </body>
 </html>

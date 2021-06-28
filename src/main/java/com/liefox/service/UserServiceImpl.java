@@ -35,13 +35,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public int regUser(String username, String password) {
-        return userDao.regUser(username, password);
+    public int regUser(String username, String password,int type, int schoolid) {
+        return userDao.regUser(username, password,type,schoolid);
     }
 
     @Override
-    public List<User> queryDataByUsername(String username) {
-        return userDao.queryDataByUsername(username);
+    public List<SignInfo> queryDataByUserId(int userid) {
+        return userDao.queryDataByUserId(userid);
     }
 
     @Override

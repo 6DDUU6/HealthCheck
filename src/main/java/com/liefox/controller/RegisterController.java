@@ -1,11 +1,13 @@
 package com.liefox.controller;
 
 
+import com.liefox.pojo.school;
 import com.liefox.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import com.liefox.pojo.school;
 
 import javax.servlet.http.HttpSession;
 
@@ -23,10 +25,14 @@ public class RegisterController {
     private UserService userService;
 
     @RequestMapping("/IfRegister")
-    public String Register(HttpSession session,String username, String password){
-        System.out.println(username+"+"+password);
+    public String Register(HttpSession session,String username, String password, String school){
+        school sc = userService.querySchoolByName(school);
+        if(sc == null){
+            session.setAttribute("info","学校不存在!");
+            return "register";
+        }
         try {
-            int result = userService.regUser(username,password);
+            int result = userService.regUser(username,password,2,sc.getSchoolid());
             if (result != 0){
                 return "redirect:/login.jsp";
             }
@@ -35,8 +41,30 @@ public class RegisterController {
             System.out.println("用户名已存在！");
             return "register";
         }
-            return "redirect:/login.jsp";
+        session.removeAttribute("info");
+        return "redirect:/login.jsp";
 
     }
 
+    @RequestMapping("/IfTeacherRegister")
+    public String TeacherRegister(HttpSession session,String username, String password, String school){
+        school sc = userService.querySchoolByName(school);
+        if(sc == null){
+            session.setAttribute("info","学校不存在!");
+            return "tregister";
+        }
+        try {
+            int result = userService.regUser(username,password,1,sc.getSchoolid());
+            if (result != 0){
+                return "redirect:/login.jsp";
+            }
+        }catch (Exception e){
+            session.setAttribute("info","用户名已存在!");
+            System.out.println("用户名已存在！");
+            return "tregister";
+        }
+        session.removeAttribute("info");
+        return "redirect:/login.jsp";
+
+    }
 }

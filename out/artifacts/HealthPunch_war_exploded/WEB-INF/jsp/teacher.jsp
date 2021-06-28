@@ -45,14 +45,6 @@
     <div class="layui-col-xs12 layui-col-md12">
         <h1 style="text-align: center">任务情况</h1>
         <table class="layui-hide" id="test" lay-filter="test"></table>
-
-        <script type="text/html" id="toolbarDemo">
-            <div class="layui-btn-container">
-                <button class="layui-btn layui-btn-sm" lay-event="getCheckData">获取选中行数据</button>
-                <button class="layui-btn layui-btn-sm" lay-event="getCheckLength">获取选中数目</button>
-                <button class="layui-btn layui-btn-sm" lay-event="isAll">验证是否全选</button>
-            </div>
-        </script>
     </div>
 </div>
 
@@ -67,9 +59,12 @@
             , defaultToolbar: ['filter', 'exports', 'print']
             , title: '用户数据表'
             , cols: [[
-                {field: 'signid', title: '签到id', width: 200, fixed: 'left', unresize: true, sort: true}
+                {field: 'signid', title: '签到id', width: 100, unresize: true, sort: true}
                 , {field: 'username', title: '用户名', width: 200}
                 , {field: 'address', title: '打卡地址', width: 500}
+                , {field: 'temperature', title: '体温', width: 100, sort: true}
+                , {field: 'qr_code_color', title: '健康码颜色', width: 200, sort: true}
+                , {field: 'is_to_dongguan', title: '是否去过高风险地区', width: 200}
                 , {field: 'date', title: '打卡时间', sort: true}
             ]]
             ,parseData: function (res) {
@@ -79,25 +74,6 @@
                     ,"data": res
                 }
             }
-        });
-
-        //头工具栏事件
-        table.on('toolbar(test)', function (obj) {
-            var checkStatus = table.checkStatus(obj.config.id);
-            switch (obj.event) {
-                case 'getCheckData':
-                    var data = checkStatus.data;
-                    layer.alert(JSON.stringify(data));
-                    break;
-                case 'getCheckLength':
-                    var data = checkStatus.data;
-                    layer.msg('选中了：' + data.length + ' 个');
-                    break;
-                case 'isAll':
-                    layer.msg(checkStatus.isAll ? '全选' : '未全选');
-                    break;
-            }
-            ;
         });
     });
 </script>

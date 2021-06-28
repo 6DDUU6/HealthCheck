@@ -79,13 +79,13 @@
             <div class="layui-card">
                 <div class="layui-card">
                     <div class="layui-card-header" style="text-align: center">
-                        <h1>学生注册</h1>
+                        <h1>教师注册</h1>
                     </div>
                     <div class="layui-card-body">
                         <%--输入框--%>
-                        <form class="layui-form" action="${pageContext.request.contextPath}/IfRegister" method="post">
+                        <form class="layui-form" action="${pageContext.request.contextPath}/IfTeacherRegister" method="post">
                             <div class="layui-form-item">
-                                <label class="layui-form-label"><h3>学生名字:</h3></label>
+                                <label class="layui-form-label"><h3>教师名字:</h3></label>
                                 <div class="layui-input-block">
                                     <input id="suggestId" type="text" name="username" lay-verify="required|username"
                                            autocomplete="off" lay-reqtext="取个名字吧！" placeholder="请输入用户名"
@@ -118,7 +118,7 @@
                             </div>
                         </form>
                             <%--小聪明，当时的灵机一动，感觉不好的可以直接修改--%>
-                            <span style="color: red"><i class="layui-icon layui-icon-face-surprised" style="font-size: 20px"></i>&nbsp;${info}</span>
+                            <span style="color: red;"><i class="layui-icon layui-icon-face-surprised" style="font-size: 20px"></i>&nbsp;${info}</span>
                         <%--输入框 end--%>
                         <a href="${pageContext.request.contextPath}/login.jsp" style="float:right">返回</a>
                     </div>

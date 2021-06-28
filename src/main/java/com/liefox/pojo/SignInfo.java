@@ -15,6 +15,6 @@ public class SignInfo {
     private String temperature;//体温
     private String address;//地址
     private String date;//时间
-    private String qrCodeColor;
-    private String isToDongguan;
+    private String qr_code_color;//健康码颜色
+    private String is_to_dongguan;//是否去过中高风险地区，之前写的是东莞，懒得改数据库了
 }

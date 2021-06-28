@@ -9,11 +9,11 @@ public interface UserDao {
     //登录用户
     User logUser(User user);
     //注册用户
-    int regUser(@Param("username") String username,@Param("password") String password);
+    int regUser(@Param("username") String username,@Param("password") String password,@Param("type") int type,@Param("schoolid") int schoolid);
     //修改用户信息
     int updateUserInfo(User user);
     //查看打卡记录
-    List<User> queryDataByUsername(@Param("username") String username);
+    List<SignInfo> queryDataByUserId(@Param("userid") int userid);
     //添加打卡记录
     int addData(SignInfo info);
     //查询全部用户打卡记录

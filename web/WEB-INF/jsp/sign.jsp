@@ -102,16 +102,16 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label" style="width: 100px"><h2>粤康码：</h2></label>
                     <div class="layui-input-block">
-                        <input type="radio" name="qrCodeColor" value="黄码" title="黄码">
-                        <input type="radio" name="qrCodeColor" value="红码" title="红码">
-                        <input type="radio" name="qrCodeColor" value="绿码" title="绿码" checked>
+                        <input type="radio" name="qr_code_color" value="黄码" title="黄码">
+                        <input type="radio" name="qr_code_color" value="红码" title="红码">
+                        <input type="radio" name="qr_code_color" value="绿码" title="绿码" checked>
                     </div>
                 </div>
                 <div class="layui-form-item">
-                    <label class="layui-form-label" style="width: 415px"><h2>近十四天（6月6日至今）您是否去过东莞？</h2></label>
+                    <label class="layui-form-label" style="width: 415px"><h2>近十四天您是否去过中高风险地区？</h2></label>
                     <div class="layui-input-block">
-                        <input type="radio" name="isToDongguan" value="是" title="是">
-                        <input type="radio" name="isToDongguan" value="否" title="否" checked>
+                        <input type="radio" name="is_to_dongguan" value="是" title="是">
+                        <input type="radio" name="is_to_dongguan" value="否" title="否" checked>
                     </div>
                 </div>
                 <div class="layui-form-item">

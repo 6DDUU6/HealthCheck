@@ -59,13 +59,13 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach var="user" items="${list}">
+            <c:forEach var="info" items="${list}">
                 <tr>
-                    <td>${user.temperature}&nbsp;&nbsp;℃</td>
-                    <td>${user.address}</td>
-                    <td>${user.date}</td>
-                    <td>${user.qrCodeColor}</td>
-                    <td>${user.isToDongguan}</td>
+                    <td>${info.temperature}&nbsp;&nbsp;℃</td>
+                    <td>${info.address}</td>
+                    <td>${info.date}</td>
+                    <td>${info.qr_code_color}</td>
+                    <td>${info.is_to_dongguan}</td>
                 </tr>
             </c:forEach>
             </tbody>

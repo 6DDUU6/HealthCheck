@@ -12,13 +12,13 @@
     </update>
     <!--注册用户-->
     <insert id="regUser">
-        insert into user (username, password)
-        values (#{username}, #{password});
+        insert into user (username, password,type,schoolid)
+        values (#{username}, #{password},#{type},#{schoolid});
     </insert>
     <!--添加打卡记录-->
     <insert id="addData" parameterType="SignInfo">
         insert into signinfo(signid, userid, username, temperature, address, qr_code_color, is_to_dongguan)
-        VALUES (#{signid},#{userid},#{username},#{temperature},#{address},#{qrCodeColor},#{isToDongguan});
+        VALUES (#{signid},#{userid},#{username},#{temperature},#{address},#{qr_code_color},#{is_to_dongguan});
     </insert>
     <!--登录用户-->
     <select id="logUser" resultType="com.liefox.pojo.User">
@@ -28,10 +28,10 @@
           and password = #{password};
     </select>
     <!--查看打卡记录-->
-    <select id="queryDataByUsername" resultType="com.liefox.pojo.User">
-        select username, temperature, address, date, qr_code_color as qrCodeColor, is_to_dongguan as isToDongguan
+    <select id="queryDataByUserId" resultType="com.liefox.pojo.SignInfo">
+        select *
         from signinfo
-        where username = #{username};
+        where userid = #{userid};
     </select>
     <!--查询全部用户打卡记录-->
     <select id="queryDataAll" resultType="com.liefox.pojo.User">

@@ -79,13 +79,13 @@
             <div class="layui-card">
                 <div class="layui-card">
                     <div class="layui-card-header" style="text-align: center">
-                        <h1>用户注册</h1>
+                        <h1>学生注册</h1>
                     </div>
                     <div class="layui-card-body">
                         <%--输入框--%>
                         <form class="layui-form" action="${pageContext.request.contextPath}/IfRegister" method="post">
                             <div class="layui-form-item">
-                                <label class="layui-form-label"><h3>用户名：</h3></label>
+                                <label class="layui-form-label"><h3>学生名字:</h3></label>
                                 <div class="layui-input-block">
                                     <input id="suggestId" type="text" name="username" lay-verify="required|username"
                                            autocomplete="off" lay-reqtext="取个名字吧！" placeholder="请输入用户名"
@@ -96,8 +96,16 @@
                                 <label class="layui-form-label"><h3>密&nbsp;&nbsp;&nbsp;&nbsp;码：</h3></label>
                                 <div class="layui-input-block">
                                     <input type="text" name="password" lay-verify="required|pass" autocomplete="off"
-                                           lay-reqtext="密码是必填项，岂能为空？"
+                                           lay-reqtext="请输入您的密码"
                                            placeholder="请输入您的密码" class="layui-input">
+                                </div>
+                            </div>
+                            <div class="layui-form-item">
+                                <label class="layui-form-label"><h3>学&nbsp;&nbsp;&nbsp;&nbsp;校：</h3></label>
+                                <div class="layui-input-block">
+                                    <input type="text" name="school" lay-verify="required|pass" autocomplete="off"
+                                           lay-reqtext="学校是必填项，岂能为空？"
+                                           placeholder="请输入您所在的学校" class="layui-input">
                                 </div>
                             </div>
                             <div class="layui-form-item">
@@ -110,9 +118,9 @@
                             </div>
                         </form>
                             <%--小聪明，当时的灵机一动，感觉不好的可以直接修改--%>
-                            <span style="color: red;margin-left: 460px"><i class="layui-icon layui-icon-face-surprised" style="font-size: 20px"></i>&nbsp;${info}</span>
+                            <span style="color: red"><i class="layui-icon layui-icon-face-surprised" style="font-size: 20px"></i>&nbsp;${info}</span>
                         <%--输入框 end--%>
-                        <a href="${pageContext.request.contextPath}/login.jsp" style="margin-left: 1075px">返回</a>
+                        <a href="${pageContext.request.contextPath}/login.jsp" style="float:right">返回</a>
                     </div>
                 </div>
             </div>

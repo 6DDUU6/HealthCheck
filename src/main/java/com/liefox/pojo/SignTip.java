@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class SignTip {
-    private int tipid;
+    private int tipid;//将tipid与signid关联起来的一张表
     private int signid;
 }

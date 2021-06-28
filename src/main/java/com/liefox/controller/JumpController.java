@@ -35,6 +35,12 @@ public class JumpController {
         session.removeAttribute("info");
         return "register";
     }
+    @RequestMapping("/jumpTeacherRegister")
+    public String jumpTeacherRegister(HttpSession session) {
+        session.removeAttribute("info");
+        return "tregister";
+    }
+
 
     //跳转到个人信息
     @RequestMapping("/jumpUserMod")

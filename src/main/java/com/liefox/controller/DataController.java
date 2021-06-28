@@ -27,10 +27,11 @@ public class DataController {
      * @描述 用户打卡记录
      */
     @GetMapping("/queryDataByUsername/{username}")
-    public ModelAndView list(@PathVariable String username){
+    public ModelAndView list(HttpSession session,@PathVariable String username){
+        User user = (User) session.getAttribute("user1");
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("queryDataByUsername");
-        modelAndView.addObject("list",userService.queryDataByUsername(username));
+        modelAndView.addObject("list",userService.queryDataByUserId(user.getUserid()));
         System.out.println(modelAndView);
         return modelAndView;
     }

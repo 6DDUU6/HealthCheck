@@ -7,12 +7,12 @@ import java.util.List;
 public interface UserService {
     //登录用户
     User logUser(User user);
-    //注册用户
-    int regUser(String username,String password);
+    //注册用户,type为2是学生,1是教师,0是系统管理员
+    int regUser(String username,String password,int type,int schoolid);
     //修改用户信息
     int updateUserInfo(User user);
     //查看打卡记录
-    List<User> queryDataByUsername(String username);
+    List<SignInfo> queryDataByUserId(int userid);
     //添加打卡记录
     int addData(SignInfo info);
     //查询全部用户打卡记录
